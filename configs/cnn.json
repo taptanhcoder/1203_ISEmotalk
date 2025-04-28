@@ -1,0 +1,125 @@
+{
+    "model": "cnn",
+    "dataset": {
+        "data_path": "data/RAVDESS_Data",
+        "class_labels": [
+            "Neutral", "Calm", "Happy", "Sad", "Angry", "Fear", "Disgust", "Surprise"
+        ]
+    },
+    "features": {
+        "feature_method": "librosa",
+        "feature_folder": "features/8-category/librosa_ravdess/",
+        "sr":22050,
+        "duration":2.5, 
+        "offset":0.6
+    },
+    "training": {
+        "epochs": 50,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "test_size": 0.2,
+        "random_state": 42,
+        "callbacks": {
+            "checkpoint_path": "checkpoints/best_model_weights.keras",
+            "monitor": "val_accuracy",
+            "early_stop_patience": 5,
+            "lr_reduction_patience": 3,
+            "lr_reduction_factor": 0.5,
+            "min_lr": 0.00001
+        }
+    },
+    "model_params": {
+        "conv_layers": [
+            {
+                "filters": 512,
+                "kernel_size": 5,
+                "strides_1": 1,
+                "padding": "same",
+                "activation": "relu",
+                "pool_size": 5,
+                "dropout": 0,
+                "strides_2": 2,
+                "batch_norm": true
+            },
+            {
+                "filters": 512,
+                "kernel_size": 5,
+                "strides_1": 1,
+                "padding": "same",
+                "activation": "relu",
+                "pool_size": 5,
+                "dropout": 0.2,
+                "strides_2": 2,
+                "batch_norm": true
+            },
+            {
+                "filters": 256,
+                "kernel_size": 5,
+                "strides_1": 1,
+                "padding": "same",
+                "activation": "relu",
+                "pool_size": 5,
+                "dropout": 0,
+                "strides_2": 2,
+                "batch_norm": true
+            },
+            {
+                "filters": 256,
+                "kernel_size": 3,
+                "strides_1": 1,
+                "padding": "same",
+                "activation": "relu",
+                "pool_size": 3,
+                "dropout": 0.2,
+                "strides_2": 2,
+                "batch_norm": true
+            },
+            {
+                "filters": 128,
+                "kernel_size": 3,
+                "strides_1": 1,
+                "padding": "same",
+                "activation": "relu",
+                "pool_size": 3,
+                "dropout": 0.2,
+                "strides_2": 2,
+                "batch_norm": true
+            }
+        ],
+        "dense_layers": [
+            {
+                "units": 512,
+                "activation": "relu",
+                "dropout": 0,
+                "batch_norm": true
+            }
+        ],
+        "output_layer": {
+            "activation": "softmax"
+        }
+    },
+    "callbacks": {
+        "model_checkpoint": {
+            "path": "checkpoints/best_model_weights.keras",
+            "monitor": "val_accuracy",
+            "save_best_only": true,
+            "save_weights_only": false 
+        },
+        "early_stopping": {
+            "monitor": "val_accuracy",
+            "patience": 5,
+            "restore_best_weights": true
+        },
+        "reduce_lr": {
+            "monitor": "val_accuracy",
+            "patience": 3,
+            "factor": 0.5,
+            "min_lr": 1e-05
+        }
+    },
+    "checkpoint":{
+        "checkpoint_path": "checkpoints/" ,
+        "checkpoint_name": "CNN_librosa"  
+    }
+    
+}
