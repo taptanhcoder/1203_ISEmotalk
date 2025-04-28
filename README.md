@@ -1,6 +1,6 @@
 #  Speech Emotion Recognition - 1203_ISEMOTALK
 
-Dự án nhận diện cảm xúc từ giọng nói sử dụng các kỹ thuật Deep Learning, Machine Learning và các công cụ như Librosa, OpenSMILE, Wav2Vec2, DVC, MLflow.
+Phát triển mô hình nhận diện cảm xúc (SER - Speech Emotion Recognition) cho tiếng Việt, đồng thời mở rộng thành hệ thống có khả năng ứng dụng thực tế trong các lĩnh vực như chăm sóc khách hàng, giáo dục, y tế, v.v.
 
 ## Cấu Trúc Thư Mục Dự Án
 
